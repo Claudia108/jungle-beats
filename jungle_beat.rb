@@ -6,7 +6,7 @@ class JungleBeat
 
   def initialize(beats)
     array = beats.split
-    @head = Node.new(array.first)
+    @head = Node.new(array.shift)
     array.each do |sound|
       append(sound)
     end
