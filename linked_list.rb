@@ -1,12 +1,15 @@
 require_relative 'node'
 require 'pry'
 
-class LinkedList
+class JungleBeat
   attr_reader :head
 
   def initialize(beats)
     array = beats.split
     @head = Node.new(array.first)
+    array.each do |sound|
+      append(sound)
+    end
   end
 
   def play

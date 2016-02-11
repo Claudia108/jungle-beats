@@ -2,38 +2,43 @@ gem 'minitest', '~> 5.2'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'linked_list'
+require_relative 'jungle_beat'
 require 'pry'
 
 
-class LinkedListTest < Minitest::Test
+class JungleBeatTest < Minitest::Test
 
    def test_it_has_a_head
-     list = LinkedList.new("bleep")
+     list = JungleBeat.new("bleep")
      @head = list
      assert list.include?("bleep")
    end
 
    def test_it_can_add_new_nodes
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("beep")
      assert beats.include?("beep")
    end
 
+   def test_it_can_start_with_multiple_nodes
+     beats = JungleBeat.new("beep boop bip")
+     assert_equal 3, beats.count
+  end
+
    def test_it_can_add_new_nodes_at_the_end
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("bup")
      assert_equal "bup", beats.head.link.data
    end
 
    def test_it_can_add_new_nodes_to_the_front
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.prepend("bup")
      assert_equal "bup", beats.head.data
    end
 
    def test_it_can_add_elements_at_a_certain_position
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("bip")
      beats.append("la")
@@ -42,7 +47,7 @@ class LinkedListTest < Minitest::Test
    end
 
    def test_it_can_delete_nodes_at_the_end
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("bip")
      beats.append("mi")
@@ -53,7 +58,7 @@ class LinkedListTest < Minitest::Test
    end
 
    def test_it_can_find_nodes_in_the_list
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("la")
      beats.append("lo")
@@ -64,7 +69,7 @@ class LinkedListTest < Minitest::Test
    end
 
    def test_it_can_count_all_the_nodes_in_the_list
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("la")
      beats.append("lo")
@@ -73,7 +78,7 @@ class LinkedListTest < Minitest::Test
    end
 
    def test_it_can_return_all_nodes
-     beats = LinkedList.new("beep")
+     beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("la")
      beats.append("lo")
