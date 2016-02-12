@@ -31,9 +31,6 @@ class JungleBeat
       current_node = current_node.link
     end
     if current_node.data == sound
-      return true
-    else
-      return false
     end
   end
 
@@ -50,7 +47,6 @@ class JungleBeat
     (start - 1).times do
       all_beats << current_node.link.data
       current_node = current_node.link
-
     end
     previous_link = current_node.link
     current_node.link = Node.new(element)
@@ -107,5 +103,4 @@ class JungleBeat
     end
     found.count
   end
-
 end
