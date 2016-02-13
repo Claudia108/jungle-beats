@@ -6,9 +6,10 @@ class JungleBeat
 
   def initialize(beats)
     array = beats.split
-    @head = Node.new(array.shift)
-    array.each do |sound|
-      append(sound)
+    @head = Node.new(array.first)
+    array.shift
+    array.each do |beat|
+      append(beat)
     end
   end
 
@@ -16,8 +17,8 @@ class JungleBeat
     `say -r 100 -v Boing #{all}`
   end
 
-  def append(data)
-    new_node = Node.new(data)
+  def append(beats)
+    new_node = Node.new(beats)
     current_node = @head
     while current_node.link
       current_node = current_node.link
@@ -25,43 +26,37 @@ class JungleBeat
     current_node.link = new_node
   end
 
-  def include?(sound)
+  def include?(beats)
     current_node = @head
-    while current_node.data != sound && current_node.link != nil
+    while current_node.data != beats && current_node.link != nil
       current_node = current_node.link
     end
-    if current_node.data == sound
-    end
+    current_node.data == beats ? true : false
   end
 
-  def prepend(sound)
-    new_node = Node.new(sound)
+  def prepend(beats)
+    new_node = Node.new(beats)
     new_node.link = @head
     @head = new_node
   end
 
-  def insert(start, element)
+  def insert(beats_index, beats)
     current_node = @head
     all_beats = [current_node.data]
 
-    (start - 1).times do
+    (beats_index - 1).times do
       all_beats << current_node.link.data
       current_node = current_node.link
     end
     previous_link = current_node.link
-    current_node.link = Node.new(element)
+    current_node.link = Node.new(beats)
     current_node.link.link = previous_link
-
-    until current_node.link == nil
-      current_node = current_node.link
-      all_beats << current_node.data
-    end
-    all_beats.join(" ")
+    all
   end
 
-  def pop(number)
+  def pop(beats_number)
     current_node = @head
-    tail_index = count - (number + 1)
+    tail_index = count - (beats_number + 1)
 
     tail_index.times do
       current_node = current_node.link
@@ -69,38 +64,35 @@ class JungleBeat
     current_node.link = nil
   end
 
-  def find(start, element)
+  def find(beats_index, beats_number)
     current_node = @head
-    start.times do
+    beats_index.times do
       current_node = current_node.link
     end
-    found = []
-    element.times do
-      found << current_node.data
+    found_beats = []
+    beats_number.times do
+      found_beats << current_node.data
       current_node = current_node.link
     end
-    found.join(" ")
+    found_beats.join(" ")
+  end
+
+  def collect
+    current_node = @head
+    found_beats = [current_node.data]
+
+    until current_node.link == nil
+      current_node = current_node.link
+      found_beats << current_node.data
+    end
+    found_beats
   end
 
   def all
-    current_node = @head
-    found = [current_node.data]
-
-    until current_node.link == nil
-      current_node = current_node.link
-      found << current_node.data
-    end
-    found.join(" ")
+    collect.join(" ")
   end
 
   def count
-    current_node = @head
-    found = [current_node]
-
-    until current_node.link == nil
-      current_node = current_node.link
-      found << current_node.data
-    end
-    found.count
+    collect.count
   end
 end

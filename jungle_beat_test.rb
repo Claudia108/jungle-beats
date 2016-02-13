@@ -9,16 +9,15 @@ require 'pry'
 class JungleBeatTest < Minitest::Test
    def test_it_has_a_head
      list = JungleBeat.new("bleep")
-     @head = list
 
      assert list.include?("bleep")
    end
 
    def test_it_can_add_new_nodes
-     beats = JungleBeat.new("beep")
-     beats.append("beep")
+     beats = JungleBeat.new("beep bop")
+     beats.append("beep bop")
 
-     assert beats.include?("beep")
+     assert beats.include?("beep bop")
    end
 
    def test_it_can_start_with_multiple_nodes
@@ -27,21 +26,21 @@ class JungleBeatTest < Minitest::Test
      assert_equal 3, beats.count
    end
 
-   def test_it_can_add_new_nodes_at_the_end
+   def test_it_can_add_a_new_node_at_the_end
      beats = JungleBeat.new("beep")
      beats.append("bup")
 
      assert_equal "bup", beats.head.link.data
    end
 
-   def test_it_can_add_new_nodes_to_the_front
+   def test_it_can_add_a_new_node_to_the_front
      beats = JungleBeat.new("beep")
      beats.prepend("bup")
 
      assert_equal "bup", beats.head.data
    end
 
-   def test_it_can_add_elements_at_a_certain_position
+   def test_it_can_add_nodes_at_a_certain_position
      beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("bip")
@@ -75,7 +74,17 @@ class JungleBeatTest < Minitest::Test
      assert_equal "lo te", found
    end
 
-   def test_it_can_count_all_the_nodes_in_the_list
+   def test_it_can_collect_all_nodes_in_the_list
+     beats = JungleBeat.new("beep")
+     beats.append("boop")
+     beats.append("la")
+     beats.append("lo")
+     all_beats = beats.collect
+
+     assert_equal ["beep", "boop", "la", "lo"], all_beats
+   end
+
+   def test_it_can_count_all_nodes_in_the_list
      beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("la")
@@ -85,13 +94,13 @@ class JungleBeatTest < Minitest::Test
      assert_equal 4, number
    end
 
-   def test_it_can_return_all_nodes
+   def test_it_can_return_all_nodes_in_a_string
      beats = JungleBeat.new("beep")
      beats.append("boop")
      beats.append("la")
      beats.append("lo")
-     list = beats.all
+     all_beats = beats.all
 
-     assert_equal "beep boop la lo", list
+     assert_equal "beep boop la lo", all_beats
    end
 end
